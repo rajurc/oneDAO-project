@@ -1,0 +1,29 @@
+<configuration>
+
+    <!-- File Appender with a Level Filter -->
+    <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/user-service-app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/user-service-app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxFileSize>1MB</maxFileSize>
+            <maxHistory>1</maxHistory>
+            <totalSizeCap>1MB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- Logger for  application-specific package(s) set to DEBUG level -->
+    <logger name="com.userapp" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE_APPENDER" />
+    </logger>
+
+    <root level="WARN">
+        <appender-ref ref="FILE_APPENDER" />
+    </root>
+
+</configuration>
